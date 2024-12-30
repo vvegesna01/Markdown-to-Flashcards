@@ -5,6 +5,7 @@ import { Flashcard } from './flashcardGenerator';
  * @param flashcards The array of flashcards.
  * @returns A CSV string.
  */
+
 export const flashcardsToCSV = (flashcards: Flashcard[]): string => {
   const headers = ['Question', 'Answer'];
   const rows = flashcards.map(card => [card.question, card.answer]);
@@ -18,9 +19,10 @@ export const flashcardsToCSV = (flashcards: Flashcard[]): string => {
 };
 
 /**
- * Triggers a download of a CSV file containing flashcards.
+ * download of a CSV file containing flashcards.
  * @param flashcards The array of flashcards.
  */
+
 export const downloadFlashcardsAsCSV = (flashcards: Flashcard[]) => {
   const csvContent = flashcardsToCSV(flashcards);
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

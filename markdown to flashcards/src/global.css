@@ -1,0 +1,16 @@
+
+:root {
+    --primary-color: #194fab;
+    --seconday-color: #A288A6;
+    --tertiary-color: #8991A2;
+    --accent-color: #FF5449;
+    --accent-color-2: #6D9B7B;
+    --text-color: white;
+    --button-color: #FF5722;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  

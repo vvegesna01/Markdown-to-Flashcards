@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { generateFlashcards, Flashcard } from './flashcardGenerator';
 import { downloadFlashcardsAsCSV } from './csvExporter';
+import '/Users/keerthanavegesna/Desktop/Coding/md-to-flashcards/Markdown-to-Flashcards/markdown to flashcards/src/global.css';
+import mdLogo from '/Users/keerthanavegesna/Desktop/Coding/md-to-flashcards/Markdown-to-Flashcards/markdown to flashcards/src/assets/mdtoflashcards_logo.png';
+
 
 const MarkdownParser: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>('');
@@ -17,8 +20,13 @@ const MarkdownParser: React.FC = () => {
       setFlashcards(cards);
     }
   };
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMarkdown(e.target.value); 
+      };
 
   return (
+    <div>
+
     <div style={{ textAlign: 'center' }}>
               <button
         onClick={() => navigate('/')} 
@@ -26,7 +34,7 @@ const MarkdownParser: React.FC = () => {
          display: 'flex',
           marginTop: '20px',
           padding: '10px 20px',
-          backgroundColor: 'purple',
+          backgroundColor: '#194fab',
           color: 'white',
           border: 'none',
           borderRadius: '5px',
@@ -42,16 +50,17 @@ const MarkdownParser: React.FC = () => {
       <input type="file" accept=".md" onChange={handleFileUpload} />
       <textarea
         value={markdown}
-        readOnly
+        onChange={handleChange}
         rows={10}
         style={{ width: '200%', marginTop: '20px', display: 'flex', justifyContent: 'center'}}
       />
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: '20px'}}>
         <h2>Generated Flashcards</h2>
+
         {flashcards.length > 0 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap'}}>
             {flashcards.map((card, index) => (
               <div
                 key={index}
@@ -77,11 +86,13 @@ const MarkdownParser: React.FC = () => {
                 </div>
                 <div
                   style={{
-                    border: '1px solid #ccc',
+                    border: '1.5px solid #ccc',
                     borderRadius: '5px',
+                    borderColor: '#8991A2',
                     padding: '10px',
                     width: '45%', 
                     textAlign: 'center',
+                    backgroundColor: '#303F9F'
                   }}
                 >
                   <strong>{card.answer}</strong>
@@ -96,7 +107,7 @@ const MarkdownParser: React.FC = () => {
             style={{
               marginTop: '20px',
               padding: '10px 20px',
-              backgroundColor: '#007BFF',
+              backgroundColor: '#194fab',
               color: 'white',
               border: 'none',
               borderRadius: '5px',
@@ -108,6 +119,7 @@ const MarkdownParser: React.FC = () => {
         )}
       </div>
 
+    </div>
     </div>
   );
 };
