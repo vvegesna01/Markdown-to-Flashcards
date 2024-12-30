@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import { generateFlashcards, Flashcard } from './flashcardGenerator';
 import { downloadFlashcardsAsCSV } from './csvExporter';
 import '/Users/keerthanavegesna/Desktop/Coding/md-to-flashcards/Markdown-to-Flashcards/markdown to flashcards/src/global.css';
 import mdLogo from '/Users/keerthanavegesna/Desktop/Coding/md-to-flashcards/Markdown-to-Flashcards/markdown to flashcards/src/assets/mdtoflashcards_logo.png';
+import Header from './header';
 
 
 const MarkdownParser: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>('');
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate();
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -20,45 +21,71 @@ const MarkdownParser: React.FC = () => {
       setFlashcards(cards);
     }
   };
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setMarkdown(e.target.value); 
-      };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMarkdown(e.target.value);
+  };
 
   return (
-    <div>
 
-    <div style={{ textAlign: 'center' }}>
-              <button
-        onClick={() => navigate('/')} 
-        style={{
-         display: 'flex',
-          marginTop: '20px',
-          padding: '10px 20px',
-          backgroundColor: '#194fab',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          marginLeft: '20px',
-          justifyContent: 'center'
-          
-        }}
-      >
-        Back to Home
-      </button>
-      <div style={{margin: "20px"}}>
-      <input type="file" accept=".md" onChange={handleFileUpload} />
-      <textarea
-        value={markdown}
-        onChange={handleChange}
-        rows={10}
-        style={{ width: '200%', marginTop: '20px', display: 'flex', justifyContent: 'center'}}
-      />
+    <div style={{ padding: '50px', maxWidth: '1200px', margin: '0 auto' }}>
+      {/* Back to Home Button */}
+      <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            padding: '10px 15px',
+            backgroundColor: '#6e3d6f',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+          }}
+        >
+          Back to Home
+        </button>
       </div>
 
-      <div style={{ marginTop: '20px'}}>
-        <h2>Generated Flashcards</h2>
+      {/* File Upload and Textarea */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px',
+        }}
+      >
+        <input
+          type="file"
+          accept=".md"
+          onChange={handleFileUpload}
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            width: '100%',
+            maxWidth: '400px',
+          }}
+        />
+        <textarea
+          value={markdown}
+          onChange={handleChange}
+          rows={10}
+          style={{
+            width: '100%',
+            maxWidth: '600px',
+            padding: '10px',
+            fontSize: '16px',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+          }}
+        />
+      </div>
 
+      {/* Flashcards Section */}
+      <div style={{ marginTop: '40px' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Generated Flashcards</h2>
         {flashcards.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap'}}>
             {flashcards.map((card, index) => (
@@ -92,7 +119,7 @@ const MarkdownParser: React.FC = () => {
                     padding: '10px',
                     width: '45%', 
                     textAlign: 'center',
-                    backgroundColor: '#303F9F'
+                    backgroundColor: '#856288',
                   }}
                 >
                   <strong>{card.answer}</strong>
@@ -101,25 +128,26 @@ const MarkdownParser: React.FC = () => {
             ))}
           </div>
         )}
+
+        {/* Export Button */}
         {flashcards.length > 0 && (
-          <button
-            onClick={() => downloadFlashcardsAsCSV(flashcards)}
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              backgroundColor: '#194fab',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-            }}
-          >
-            Export as CSV
-          </button>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <button
+              onClick={() => downloadFlashcardsAsCSV(flashcards)}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#6e3d6f',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+              }}
+            >
+               Export as CSV
+            </button>
+          </div>
         )}
       </div>
-
-    </div>
     </div>
   );
 };
